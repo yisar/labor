@@ -1,4 +1,4 @@
-importScripts('https://cdn.jsdelivr.net/gh/golang/go@go1.15.7/misc/wasm/wasm_exec.js')
+importScripts('https://cdn.jsdelivr.net/gh/golang/go@go1.16.4/misc/wasm/wasm_exec.js')
 
 function registerLaborListener(wasm, { base, args = [] } = {}) {
   let path = new URL(registration.scope).pathname
