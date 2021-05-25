@@ -8,4 +8,4 @@ addEventListener('activate', event => {
   event.waitUntil(clients.claim())
 })
 
-registerLaborListener('api.wasm', { base: 'api' })
+registerLaborListener('out.wasm', { base: 'api' })
