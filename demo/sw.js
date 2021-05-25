@@ -19,3 +19,8 @@ registerLaborListener('out.wasm', { base: 'api' }).then((global) => {
   
 `)(global)
 })
+
+
+setTimeout(()=>{
+  console.log(global)
+},1000)

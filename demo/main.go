@@ -11,13 +11,13 @@ import (
 
 func main() {
 
-	js.Global().Set("httpGet", js.FuncOf(func (this js.Value, args []js.Value) interface{} {
+	js.Global().Set("http.get", js.FuncOf(func (this js.Value, args []js.Value) interface{} {
 		path := args[0].String()
 		httpGet(path)
 		return nil
 	}))
 
-	js.Global().Set("httpServe", js.FuncOf(func (this js.Value, args []js.Value) interface{} {
+	js.Global().Set("http.serve", js.FuncOf(func (this js.Value, args []js.Value) interface{} {
 		labor.Serve(nil)
 		return nil
 	}))
