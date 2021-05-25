@@ -1,29 +1,34 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>go-wasm-http-server hello demo</title>
-    <script>
-      navigator.serviceWorker.register('sw.js')
 
-      async function hello() {
-        const name = document.querySelector("#name").value
+<head>
+  <title>demo</title>
+  <script>
+    navigator.serviceWorker.register('sw.js')
 
-        const res = await fetch('api/hello', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ name })
-        })
+    async function hello() {
+      const name = document.querySelector("#name").value
 
-        const { message } = await res.json()
+      const res = await fetch('api/hello', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name })
+      })
 
-        alert(message)
-      }
-    </script>
-  </head>
-  <body>
-    <label for="name">Name: </label><input id="name" value="World">
-    <button onclick="hello()">Hello</button>
-  </body>
+      const data = await res.json()
+
+      document.querySelector('#out').innerHTML = JSON.stringify(data)
+
+    }
+  </script>
+</head>
+
+<body>
+  <label for="name">Name: </label><input id="name" value="World">
+  <button onclick="hello()">Hello</button>
+  <pre id="out"></pre>
+</body>
+
 </html>
