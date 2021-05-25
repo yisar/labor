@@ -1,13 +1,8 @@
 importScripts('https://cdn.jsdelivr.net/gh/golang/go@go1.16.4/misc/wasm/wasm_exec.js')
 
-async function registerLaborListener(wasm, { base, args = [] } = {}) {
+function registerLaborListener(wasm, { base, args = [] } = {}) {
   let path = new URL(registration.scope).pathname
   if (base && base !== '') path = `${trimEnd(path, '/')}/${trimStart(base, '/')}`
-
-  const go = new Go()
-  go.argv = [wasm, ...args]
-  const { instance } = await WebAssembly.instantiateStreaming(fetch(wasm), go.importObject)
-  go.run(instance)
 
   const handlerPromise = new Promise(setHandler => {
     console.log(setHandler)
@@ -26,7 +21,14 @@ async function registerLaborListener(wasm, { base, args = [] } = {}) {
     }))
   })
 
-  return global
+  return new Promise((resolve)=>{
+    const go = new Go()
+    go.argv = [wasm, ...args]
+    WebAssembly.instantiateStreaming(fetch(wasm), go.importObject).then(({instance})=>{
+      go.run(instance)
+      resolve(global)
+    })
+  })
 }
 
 function trimStart(s, c) {
