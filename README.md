@@ -37,7 +37,7 @@ new Function('readFile', `const res = await readFile('a.js')`)(readFile)
 
 demo 只是打个比方，这个项目我会用 go 写，因为 docker 也是用 go 写的
 
-值得一提的是，go 编译为 wasm 是没有 GC 的，所以不存在 deno 的困扰
+值得一提的是，为了获得更好的性能和大小，我们接下来会使用类似 [tinygo](https://github.com/tinygo-org/tinygo) 的编译器
 
 但是 trip worker 我还是会用 rust 实现，理由和 deno 一样，所以本质上，同一套标准库，我得写两遍了，呜呜呜
 
