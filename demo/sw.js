@@ -9,10 +9,7 @@ addEventListener('activate', event => {
 })
 
 
-registerLaborListener('out.wasm', { base: 'api' })
-
-setTimeout(() => {
-  console.log(123)
+registerLaborListener('out.wasm', { base: 'api' }).then((global) => {
   new Function('global', `
   
     with(global){
@@ -21,4 +18,4 @@ setTimeout(() => {
     }
   
 `)(global)
-}, 1000)
+})

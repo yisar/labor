@@ -12,7 +12,8 @@ import (
 func main() {
 
 	js.Global().Set("httpGet", js.FuncOf(func (this js.Value, args []js.Value) interface{} {
-		httpGet(args[0].String())
+		path := args[0].String()
+		httpGet(path)
 		return nil
 	}))
 
