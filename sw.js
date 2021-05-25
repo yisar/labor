@@ -4,22 +4,26 @@ async function registerLaborListener(wasm, { base, args = [] } = {}) {
   let path = new URL(registration.scope).pathname
   if (base && base !== '') path = `${trimEnd(path, '/')}/${trimStart(base, '/')}`
 
+  const go = new Go()
+  go.argv = [wasm, ...args]
+  const { instance } = await WebAssembly.instantiateStreaming(fetch(wasm), go.importObject)
+  go.run(instance)
+
   const handlerPromise = new Promise(setHandler => {
+    console.log(setHandler)
     self.labor = {
       path,
       setHandler,
     }
   })
 
-  const go = new Go()
-  go.argv = [wasm, ...args]
-  const { instance } = await WebAssembly.instantiateStreaming(fetch(wasm), go.importObject)
-  go.run(instance)
-
   addEventListener('fetch', e => {
     const { pathname } = new URL(e.request.url)
     if (!pathname.startsWith(path)) return
-    e.respondWith(handlerPromise.then(handler => handler(e.request)))
+    e.respondWith(handlerPromise.then(handler => {
+      console.log(handler,e.request)
+      return handler(e.request)
+    }))
   })
 
   return global
