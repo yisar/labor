@@ -1,4 +1,4 @@
-importScripts('https://cdn.staticaly.com/gh/yisar/labor/main/sw.js?env=dev')
+importScripts('https://cdn.jsdelivr.net/gh/yisar/labor/sw.js')
 
 addEventListener('install', (event) => {
   event.waitUntil(skipWaiting())
