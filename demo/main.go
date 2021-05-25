@@ -4,12 +4,28 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"syscall/js"
 
 	labor "github.com/yisar/labor"
 )
 
 func main() {
-	http.HandleFunc("/hello", func(res http.ResponseWriter, req *http.Request) {
+
+	js.Global().Set("httpGet", js.FuncOf(func (this js.Value, args []js.Value) interface{} {
+		httpGet(args[0].String())
+		return nil
+	}))
+
+	js.Global().Set("httpServe", js.FuncOf(func (this js.Value, args []js.Value) interface{} {
+		labor.Serve(nil)
+		return nil
+	}))
+
+	select {}
+}
+
+func httpGet(path string) interface{}{
+	http.HandleFunc(path, func(res http.ResponseWriter, req *http.Request) {
 		params := make(map[string]string)
 		if err := json.NewDecoder(req.Body).Decode(&params); err != nil {
 			panic(err)
@@ -22,8 +38,5 @@ func main() {
 			panic(err)
 		}
 	})
-
-	labor.Serve(nil)
-
-	select {}
+	return nil
 }

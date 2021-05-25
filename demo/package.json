@@ -5,7 +5,7 @@
   "main": "sw.js",
   "scripts": {
     "build": "./build.cmd",
-    "serve": "serve ."
+    "dev": "serve ."
   },
   "keywords": [],
   "author": "",
