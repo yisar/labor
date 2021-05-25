@@ -13,7 +13,7 @@ async function registerLaborListener(wasm, { base, args = [] } = {}) {
 
   const go = new Go()
   go.argv = [wasm, ...args]
-  const { instance } = WebAssembly.instantiateStreaming(fetch(wasm), go.importObject)
+  const { instance } = await WebAssembly.instantiateStreaming(fetch(wasm), go.importObject)
   go.run(instance)
 
   addEventListener('fetch', e => {
