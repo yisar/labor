@@ -2,6 +2,14 @@
 
 Implementation of [Web Container](https://github.com/stackblitz/webcontainer-core)
 
+### Run
+
+```shell
+$ cd demo
+$ yarn build
+$ yarn dev
+```
+
 ### Detail
 
 ```js
