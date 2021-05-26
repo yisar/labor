@@ -22,6 +22,11 @@ func main() {
 		return nil
 	}))
 
+	js.Global().Get("labor").Get("http").Set("download", js.FuncOf(func (this js.Value, args []js.Value) interface{} {
+		body := labor.Download(args[0].String())
+		return body
+	}))
+
 	select {}
 }
 
