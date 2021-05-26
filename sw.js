@@ -6,8 +6,9 @@ function registerLaborListener(wasm, { base, args = [] } = {}) {
 
   const handlerPromise = new Promise(setHandler => {
     self.labor = {
-      http:{},
-      fs:{},
+      http: {},
+      fs: {},
+      require,
       path,
       setHandler,
     }
@@ -39,4 +40,14 @@ function trimEnd(s, c) {
   let r = s
   while (r.endsWith(c)) r = r.slice(0, -c.length)
   return r
+}
+
+function require(path) {
+  if (path in self.labor) {
+    return self.labor[path]
+  }
+}
+
+function excute(script){
+  new Function('labor', `with(labor){${script}}`)(labor)
 }

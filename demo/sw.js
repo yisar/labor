@@ -8,12 +8,10 @@ addEventListener('activate', event => {
   event.waitUntil(clients.claim())
 })
 
-
 registerLaborListener('out.wasm', { base: 'api' }).then((labor) => {
-  new Function('labor', `with(labor){
-
-      http.get('/hello')
-      http.serve()
-      
-    }`)(labor)
+  excute(`
+    const http = require('http')
+    http.get('/hello')
+    http.serve()
+  `)
 })
