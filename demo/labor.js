@@ -1,17 +1,17 @@
-importScripts('https://cdn.jsdelivr.net/gh/golang/go@go1.16.4/misc/wasm/wasm_exec.js')
+importScripts('./wasm_exec.js')
+
+self.labor = {
+  http: {},
+  fs: {},
+}
 
 function registerLaborListener(wasm, { base, args = [] } = {}) {
   let path = new URL(registration.scope).pathname
   if (base && base !== '') path = `${trimEnd(path, '/')}/${trimStart(base, '/')}`
 
   const handlerPromise = new Promise(setHandler => {
-    self.labor = {
-      http: {},
-      fs: {},
-      require,
-      path,
-      setHandler,
-    }
+    self.labor.path = path
+    self.labor.setHandler = setHandler
   })
 
   addEventListener('fetch', e => {
@@ -30,6 +30,10 @@ function registerLaborListener(wasm, { base, args = [] } = {}) {
   })
 }
 
+function excute(script){
+  new Function('labor', `with(labor){${script}}`)(self.labor)
+}
+
 function trimStart(s, c) {
   let r = s
   while (r.startsWith(c)) r = r.slice(c.length)
@@ -42,12 +46,8 @@ function trimEnd(s, c) {
   return r
 }
 
-function require(path) {
+self.labor.require = (path) => {
   if (path in self.labor) {
     return self.labor[path]
   }
-}
-
-function excute(script){
-  new Function('labor', `with(labor){${script}}`)(labor)
 }

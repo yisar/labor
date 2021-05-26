@@ -1,4 +1,4 @@
-importScripts('https://cdn.jsdelivr.net/gh/yisar/labor/sw.js')
+importScripts('./labor.js')
 
 addEventListener('install', (event) => {
   event.waitUntil(skipWaiting())
@@ -14,4 +14,7 @@ registerLaborListener('out.wasm', { base: 'api' }).then((labor) => {
     http.get('/hello')
     http.serve()
   `)
+
+  const buffer = self.labor.http.download('https://berial.vercel.app')
+  console.log(buffer)
 })
