@@ -24,7 +24,7 @@ function registerLaborListener(wasm, { base, args = [] } = {}) {
     go.argv = [wasm, ...args]
     WebAssembly.instantiateStreaming(fetch(wasm), go.importObject).then(({ instance }) => {
       go.run(instance)
-      resolve(global)
+      resolve(self.labor)
     })
   })
 }

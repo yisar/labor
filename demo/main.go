@@ -13,7 +13,6 @@ func main() {
 
 	js.Global().Get("labor").Get("http").Set("get", js.FuncOf(func (this js.Value, args []js.Value) interface{} {
 		path := args[0].String()
-		fmt.Println(path)
 		httpGet(path)
 		return nil
 	}))

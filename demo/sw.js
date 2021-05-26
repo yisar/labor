@@ -9,13 +9,11 @@ addEventListener('activate', event => {
 })
 
 
-registerLaborListener('out.wasm', { base: 'api' }).then((global) => {
-  new Function('global', `
-  
-    with(global){
-      httpGet('/hello')
-      httpServe()
-    }
-  
-`)(global)
+registerLaborListener('out.wasm', { base: 'api' }).then((labor) => {
+  new Function('labor', `with(labor){
+
+      http.get('/hello')
+      http.serve()
+      
+    }`)(labor)
 })
