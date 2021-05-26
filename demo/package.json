@@ -4,13 +4,14 @@
   "description": "",
   "main": "sw.js",
   "scripts": {
-    "build": "./build.cmd",
+    "build": "cross-env GOOS=js GOARCH=wasm go build -o out.wasm main.go",
     "dev": "serve ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "serve": "^11.3.2"
   }
 }
