@@ -6,6 +6,8 @@ function registerLaborListener(wasm, { base, args = [] } = {}) {
 
   const handlerPromise = new Promise(setHandler => {
     self.labor = {
+      http:{},
+      fs:{},
       path,
       setHandler,
     }
