@@ -15,6 +15,6 @@ registerLaborListener('out.wasm', { base: 'api' }).then((labor) => {
     http.serve()
   `)
 
-  const buffer = self.labor.http.download('https://berial.vercel.app')
-  console.log(buffer)
+  // const buffer = self.labor.http.download('https://berial.vercel.app')
+  // console.log(buffer)
 })
